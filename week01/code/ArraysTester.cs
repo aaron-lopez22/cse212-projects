@@ -1,3 +1,5 @@
+using System.Globalization;
+
 public static class ArraysTester {
     /// <summary>
     /// Entry point for the tests
@@ -34,12 +36,21 @@ public static class ArraysTester {
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     private static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        ///I am creating the array named results and dictating how big the array should be. In this case we want the length to be how long the array will be.
+        double[] results = new double[length];
+        /// I am creating a variable that saves the number the method is taking
+        double multipleNumber = number;
+        /// I ran into issues with the multiples of "number" trying to use i so I created a new varialbe j so I knew what number is being times
+        double j = 0;
+        /// the loop is just going through and adding the multiples the amount of times how big the array is so it stays at the length the array should be
+        for (int i = 0; i < length; i++)
+        {
+            ++j;
+            results[i] = multipleNumber * j;
+        }
+    
 
-        return new double[0]; // replace this return statement with your own
+       return results; // replace this return statement with your own
     }
     
     /// <summary>
@@ -50,12 +61,24 @@ public static class ArraysTester {
     /// <br /><br />
     /// Because a list is dynamic, this function will modify the existing <c>data</c> list rather than returning a new list.
     /// </summary>
-    private static void RotateListRight(List<int> data, int amount)
+   static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+    
+/// creating the length of the list
+   int _data = data.Count;
 
+/// creating a new list to store the list that we are shifting
+   List<int> rotatedList = new List<int>(data);
+/// we are going through the list with this loop and not passing the length of it by using < data.count 
+  for (int i = 0; i < _data; i++){
+    /// this is how we are getting the new index for the list. We are taking original index number and adding the new amount. we have to use % so that it does not go over the index number we need or that we can use. Essentialy 8 plus the new number would be over the index count. Using % we can get the remainder that will give us the correct index we want
+    int newIndex = (i + amount) % _data;
+    /// we are now creating the new list with the new indexes
+    rotatedList[newIndex] = data[i];
+
+  }
+  /// we are clearing the original list then adding the new rotated list.
+  data.Clear();
+  data.AddRange(rotatedList);
     }
 }
