@@ -1,4 +1,6 @@
 using System.Text.Json;
+using System.IO;
+using System.Collections.Generic;
 
 public static class SetsAndMapsTester {
     public static void Run() {
@@ -51,7 +53,7 @@ public static class SetsAndMapsTester {
         Console.WriteLine(IsAnagram("Eleven plus One", "Twelve Plus One")); // false
 
         // Problem 4: Maze
-        Console.WriteLine("\n=========== Maze TESTS ===========");
+       // Console.WriteLine("\n=========== Maze TESTS ===========");
         Dictionary<ValueTuple<int, int>, bool[]> map = SetupMazeMap();
         var maze = new Maze(map);
         maze.ShowStatus(); // Should be at (1,1)
@@ -77,7 +79,7 @@ public static class SetsAndMapsTester {
 
         // Problem 5: Earthquake
         // Sample Test Cases (may not be comprehensive) 
-        Console.WriteLine("\n=========== Earthquake TESTS ===========");
+        //Console.WriteLine("\n=========== Earthquake TESTS ===========");
         EarthquakeDailySummary();
 
         // Sample output from the function.  Number of earthquakes, places, and magnitudes will vary.
@@ -108,9 +110,30 @@ public static class SetsAndMapsTester {
     /// </summary>
     /// <param name="words">An array of 2-character words (lowercase, no duplicates)</param>
     private static void DisplayPairs(string[] words) {
+
+        var list_pair = new HashSet<string>();
+        for (int i = 0; i < words.Length; i++){
+            string word = words[i];
+            string reversed = ReverseLetter(word);
+            if (word != reversed)
+            {
+            if (!list_pair.Contains(word) && Array.Exists(words, w => w == reversed))
+            {
+                Console.WriteLine($"{reversed} and {word}");
+                list_pair.Add(reversed);
+            }
+            }
+        }
         // To display the pair correctly use something like:
-        // Console.WriteLine($"{word} & {pair}");
+        //Console.WriteLine($"{word} & {pair}");
         // Each pair of words should displayed on its own line.
+    }
+
+    private static string ReverseLetter(string input)
+    {
+        char[] chararray = input.ToCharArray();
+        Array.Reverse(chararray);
+        return new string(chararray);
     }
 
     /// <summary>
@@ -131,6 +154,15 @@ public static class SetsAndMapsTester {
         var degrees = new Dictionary<string, int>();
         foreach (var line in File.ReadLines(filename)) {
             var fields = line.Split(",");
+            var degree = fields[3].Trim();
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree]++;
+            }
+            else
+            {
+                degrees.Add(degree, 1);
+            }
             // Todo Problem 2 - ADD YOUR CODE HERE
         }
 
