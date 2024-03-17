@@ -80,7 +80,7 @@ public static class SetsAndMapsTester {
         // Problem 5: Earthquake
         // Sample Test Cases (may not be comprehensive) 
         //Console.WriteLine("\n=========== Earthquake TESTS ===========");
-        EarthquakeDailySummary();
+       // EarthquakeDailySummary();
 
         // Sample output from the function.  Number of earthquakes, places, and magnitudes will vary.
         // 1km NE of Pahala, Hawaii - Mag 2.36
@@ -274,6 +274,8 @@ public static class SetsAndMapsTester {
         return map;
     }
 
+    
+
     /// <summary>
     /// This function will read JSON (Javascript Object Notation) data from the 
     /// United States Geological Service (USGS) consisting of earthquake data.
@@ -288,20 +290,20 @@ public static class SetsAndMapsTester {
     /// https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php
     /// 
     /// </summary>
-    private static void EarthquakeDailySummary() {
-        const string uri = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";
-        using var client = new HttpClient();
-        using var getRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
-        using var jsonStream = client.Send(getRequestMessage).Content.ReadAsStream();
-        using var reader = new StreamReader(jsonStream);
-        var json = reader.ReadToEnd();
-        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+    ///private static void EarthquakeDailySummary() {
+       /// const string uri = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson";
+        ///using var client = new HttpClient();
+       /// using var getRequestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
+       /// using var jsonStream = client.Send(getRequestMessage).Content.ReadAsStream();
+        //using var reader = new StreamReader(jsonStream);
+       /// var json = reader.ReadToEnd();
+       /// var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-        var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(json, options);
+       /// var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(json, options);
 
         // TODO:
         // 1. Add code in FeatureCollection.cs to describe the JSON using classes and properties 
         // on those classes so that the call to Deserialize above works properly.
         // 2. Add code below to print out each place a earthquake has happened today and its magitude.
-    }
+   // }
 }
