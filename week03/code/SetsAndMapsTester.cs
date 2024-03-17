@@ -189,8 +189,44 @@ public static class SetsAndMapsTester {
     /// # Problem 3 #
     /// #############
     private static bool IsAnagram(string word1, string word2) {
-        // Todo Problem 3 - ADD YOUR CODE HERE
-        return false;
+        // making it so case is ignored so we can have upper and lowercase. also getting rid of the spaces
+        word1 = word1.ToLower().Replace(" ", "");
+        
+        word2 = word2.ToLower().Replace(" ", "");
+
+        if (word1.Length != word2.Length)
+        
+            return false;
+        Dictionary<char, int> letterfreq = Countletterfreq(word1);
+
+        Dictionary<char, int> letterFreq2 = Countletterfreq(word2);
+
+        foreach (var kvp in letterfreq)
+        {
+            char letter = kvp.Key;
+            int freq = kvp.Value;
+            int freq2;
+
+            if (!letterFreq2.TryGetValue(letter, out freq2) || freq != freq2)
+            return false;
+        }
+        
+
+        return true;
+    }
+
+    private static Dictionary<char, int> Countletterfreq(string word)
+    {
+        var letterFreq = new Dictionary<char, int>();
+
+        foreach (char letter in word )
+        {
+            if (letterFreq.ContainsKey(letter))
+                letterFreq[letter]++;
+                else
+                letterFreq[letter] = 1;
+        }
+        return letterFreq;
     }
 
     /// <summary>
