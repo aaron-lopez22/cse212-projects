@@ -146,8 +146,14 @@ public static class RecursionTester {
     /// n &lt;= 0, just return 0.   A loop should not be used.
     /// </summary>
     public static int SumSquaresRecursive(int n) {
-        // TODO Start Problem 1
+
+     if (n <= 0)
+     {
         return 0;
+     }
+
+     return n * n + SumSquaresRecursive(n -1);
+
     }
 
     /// <summary>
@@ -170,7 +176,18 @@ public static class RecursionTester {
     /// and the length of the letters list).
     /// </summary>
     public static void PermutationsChoose(string letters, int size, string word = "") {
-        // TODO Start Problem 2
+        
+        if (word.Length == size)
+        {
+            Console.WriteLine(word);
+            return;
+        }
+
+        foreach (char letter in letters)
+        {
+            string newWord = word + letter;
+            PermutationsChoose(letters, size, newWord);
+        }
     }
 
     /// <summary>
@@ -220,6 +237,11 @@ public static class RecursionTester {
     /// </summary>
     public static decimal CountWaysToClimb(int s, Dictionary<int, decimal>? remember = null) {
         // Base Cases
+
+        if (remember == null)
+        {
+            remember = new Dictionary<int, decimal>();
+        }
         if (s == 0)
             return 0;
         if (s == 1)
@@ -229,8 +251,14 @@ public static class RecursionTester {
         if (s == 3)
             return 4;
 
+        if (remember.ContainsKey(s))
+            return remember[s];
+
         // Solve using recursion
         decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+
+        remember[s] = ways;
+
         return ways;
     }
 
@@ -247,8 +275,27 @@ public static class RecursionTester {
     /// Using recursion, display all possible binary strings for a given pattern.  You might find 
     /// some of the string functions like IndexOf and [..X] / [X..] to be useful in solving this problem.
     /// </summary>
-    public static void WildcardBinary(string pattern) {
-        // TODO Start Problem 4
+    /// 
+    ///had to add another input string current.
+    public static void WildcardBinary(string pattern, string current = "") {
+        if (pattern.Length == 0)
+        {
+            Console.WriteLine(current);
+            return;
+        }
+
+        if (pattern[0] != '*')
+        {
+            WildcardBinary(pattern[1..], current + pattern[0]);
+        }
+        else
+        {
+            WildcardBinary(pattern[1..], current + '0');
+
+
+            WildcardBinary(pattern[1..], current + '1');
+        }
+     
     }
 
     /// <summary>
